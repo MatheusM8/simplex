@@ -7,10 +7,48 @@
 
   <body>
 
-    <h1>SIMPLEX</h1>
-    <br/>
+    <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">
+          <a class="navbar-brand" href="#">Simplex</a>
+        </a>
+      </div>
+    </div>
+  </nav>
 
-    <form action="" method="post">
+  <form class="navbar-form navbar-left" role="simplex_input">
+    <div class="form-group">
+      <input type="text" class="form-control" size="55" name="expressao" placeholder="Expressão">
+      &nbsp;
+      <button type="submit" class="btn btn-default">Limpar</button>
+      <hr>
+      <input type="text" class="form-control" size="55" name="restricao" placeholder="Restrição">
+      <br/>
+      <br/>
+      <input type="text" class="form-control" size="55" name="restricao" placeholder="Restrição">
+      <br/>
+      <br/>
+      <input type="text" class="form-control" size="55" name="restricao" placeholder="Restrição">
+      <br/>
+      <br/>
+      <input type="text" class="form-control" size="55" name="restricao" placeholder="Restrição">
+      <br/>
+      <br/>
+      <input type="text" class="form-control" size="55" name="restricao" placeholder="Restrição">
+      <br/>
+      <br/>
+      <input type="text" class="form-control" size="55" name="restricao" placeholder="Restrição">
+      &nbsp;
+    </div>
+    <br/>
+    <br/>
+    <button type="submit" class="btn btn-default">Maximizar</button>
+    &nbsp;
+    <button type="submit" class="btn btn-default">Minimizar</button>
+  </form>
+
+    <!-- <form action="" method="post">
       <input type="text" name="expressao" placeholder="Expressão"/>
       <br/>
       <input type="text" name="restricao1" placeholder="Restrição"/>
@@ -19,8 +57,15 @@
       <br/>
       <input type="button" name="calcular" value="calcular"/>
       <br/>
+      
       <input type="submit" value="Enviar"/>
-    </form>
+    </form> -->
+
+    <!-- <ul>
+      <% @tabela.each do |t| %>
+       <li> <%= t  %> </li>
+       <% end %>
+    </ul> -->
 
   </body>
 
