@@ -1,7 +1,16 @@
 class SimplexController < ApplicationController
+  
   def index
-
-    @tabela = [ "Buy Milk", "Buy Soap", "Pay bill", "Draw Money" ] ##### passar a tabela
-
+    @expressao = "2x + 3y"
+    @tabela = ['1','2']
   end
+
+  def max
+    render layout: false
+  end
+
+  def min
+    render layout: false
+  end
+
 end

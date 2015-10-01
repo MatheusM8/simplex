@@ -8,65 +8,69 @@
   <body>
 
     <nav class="navbar navbar-default">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <a class="navbar-brand" href="#">
-          <a class="navbar-brand" href="#">Simplex</a>
-        </a>
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="#">Simplex</a>
+          </a>
+        </div>
       </div>
+    </nav>
+
+
+    <div class="container">
+
+      <div class="row">
+
+        <div class="col-md-6">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <span class="glyphicon glyphicon-scale"></span>
+            </div>
+            <div class="panel-body">
+
+              <form role="simplex_input">
+
+                <div class="form-group">
+                  <input type="text" id="expression" class="form-control" name="expressao" placeholder="Expressão">
+                  <hr>
+                </div>
+
+                <div id="restrictions">
+                  <div class="form-group form-horizontal">
+                    <input type="text" class="form-control" name="restricao" placeholder="Restrição">
+                  </div>
+                </div>
+
+                <button type="button" id="add" class="btn btn-success">Add Restrição</button>
+                <button type="button" id="max" class="btn btn-primary">Maximizar</button>
+                <button type="button" id="min" class="btn btn-primary">Minimizar</button>
+
+              </form>
+
+            </div>
+          </div>
+        </div>  
+
+        <div class="col-md-6">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              Resultado
+            </div>
+            <div class="panel-body">
+              <div id="result">
+                <div class="alert alert-info">
+                  Preencha o formulário ao lado e escolha o calculo.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
     </div>
-  </nav>
-
-  <form class="navbar-form navbar-left" role="simplex_input">
-    <div class="form-group">
-      <input type="text" class="form-control" size="55" name="expressao" placeholder="Expressão">
-      &nbsp;
-      <button type="submit" class="btn btn-default">Limpar</button>
-      <hr>
-      <input type="text" class="form-control" size="55" name="restricao" placeholder="Restrição">
-      <br/>
-      <br/>
-      <input type="text" class="form-control" size="55" name="restricao" placeholder="Restrição">
-      <br/>
-      <br/>
-      <input type="text" class="form-control" size="55" name="restricao" placeholder="Restrição">
-      <br/>
-      <br/>
-      <input type="text" class="form-control" size="55" name="restricao" placeholder="Restrição">
-      <br/>
-      <br/>
-      <input type="text" class="form-control" size="55" name="restricao" placeholder="Restrição">
-      <br/>
-      <br/>
-      <input type="text" class="form-control" size="55" name="restricao" placeholder="Restrição">
-      &nbsp;
-    </div>
-    <br/>
-    <br/>
-    <button type="submit" class="btn btn-default">Maximizar</button>
-    &nbsp;
-    <button type="submit" class="btn btn-default">Minimizar</button>
-  </form>
-
-    <!-- <form action="" method="post">
-      <input type="text" name="expressao" placeholder="Expressão"/>
-      <br/>
-      <input type="text" name="restricao1" placeholder="Restrição"/>
-      <br/>
-      <input type="text" name="restricao2" placeholder="Restrição"/>
-      <br/>
-      <input type="button" name="calcular" value="calcular"/>
-      <br/>
-      
-      <input type="submit" value="Enviar"/>
-    </form> -->
-
-    <!-- <ul>
-      <% @tabela.each do |t| %>
-       <li> <%= t  %> </li>
-       <% end %>
-    </ul> -->
-
+   
   </body>
 
 </html>
