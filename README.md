@@ -1,5 +1,7 @@
 # simplex
 
+version 1.0
+
 Cesar Alves    RA 533122  
 Gabriel Caires RA 526932  
 Vitor Derobe   RA 525510  
@@ -52,4 +54,4 @@ Utilize o botão "-" para remover campos de textos adicionais para restrições.
 
 - Resultado  
 
-É exibido o passo a passo das tabelas geradas pelo método simplex.  
+É exibido o passo a passo das tabelas geradas pelo método simplex, com número máximo de 20 iterações.  

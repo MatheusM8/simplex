@@ -205,6 +205,7 @@ module Simplex
     def self.run(expression, restrictions = [],  action)
 
       matrix_step_by_step = []
+      loop_count          = 0
 
       matrix_step_by_step << simplex_table(expression, restrictions, action)
 
@@ -212,6 +213,11 @@ module Simplex
         
         if matrix_step_by_step[-1][-1][-1] == nil
           matrix_step_by_step.pop
+          return matrix_step_by_step
+        end
+
+        loop_count += 1
+        if loop_count > 20
           return matrix_step_by_step
         end
 
