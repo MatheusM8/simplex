@@ -2,6 +2,8 @@
 
 version 1.0
 
+[Aplicação Simplex online](https://fierce-bayou-1370.herokuapp.com)
+
 Cesar Alves    RA 533122  
 Gabriel Caires RA 526932  
 Vitor Derobe   RA 525510  
