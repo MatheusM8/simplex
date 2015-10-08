@@ -22,7 +22,7 @@ jQuery ->
   calculate = (type) ->
     restrictions = []   
     $("#restrictions input").each ->
-      restrictions << $(this).val()
+      restrictions.push $(this).val()
 
     expression = $("#expression").val()
 
@@ -39,7 +39,7 @@ jQuery ->
       success: (data, textStatus, jqXHR) ->
         $("#result").html(jqXHR.responseText)
       error: (jqXHR, textStatus, errorThrown) ->
-        $("#result").html("Erro")  
+        $("#result").html("Erro ! Expressão ou restrições com valores errados.")  
 
 
   $("#max").click ->
