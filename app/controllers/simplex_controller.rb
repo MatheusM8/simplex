@@ -7,12 +7,14 @@ class SimplexController < ApplicationController
   end
 
   def max
-    @matrix_step_by_step = Simplex::Simplex.run(params[:expression], params[:restrictions])
+    @matrix_step_by_step = Simplex::Simplex.run(params[:expression], params[:restrictions], params[:action])
 
     render layout: false
   end
 
   def min
+    @matrix_step_by_step = Simplex::Simplex.run(params[:expression], params[:restrictions], params[:action])
+    
     render layout: false
   end
 

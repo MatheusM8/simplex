@@ -21,10 +21,27 @@ module Simplex
     # | f3   | 3  | 2  | 0  | 0  | 1  | 18 |
     # | Z    | -3 | -5 | 0  | 0  | 0  | 0  |
 
-    def self.simplex_table(expression, restrictions = [])
+    # Min Z = -3x1 - 5x2
+    #         x1 <= 4
+    #         x2 <= 6
+    #         3x1 + 2x2 <= 18
+
+    # | Base | x1 | x2 | f1 | f2 | f3 | B  |
+    # | f1   | 1  | 0  | 1  | 0  | 0  | 4  |
+    # | f2   | 0  | 1  | 0  | 1  | 0  | 6  |
+    # | f3   | 3  | 2  | 0  | 0  | 1  | 18 |
+    # | Z    | -3 | -5 | 0  | 0  | 0  | 0  |
+
+    def self.simplex_table(expression, restrictions = [], action)
+
+      puts expression = expression.gsub(/[\s\*]/, '').strip
+      restrictions.map do |r|
+        r.gsub!(/[\s\*]/, '').strip!
+      end
+      puts restrictions
       
-      values    = expression.scan(/\w+/)      # [Array] values for each variable of the expression. Ex: ['3x1', '5x2'].
-      variables = expression.scan(/[a-z]\d*/) # [Array] the variables of the expression. Ex: ['x1', 'x2'].
+      values    = expression.scan(/-*\w+/)      # [Array] values for each variable of the expression. Ex: ['3x1', '5x2'].
+      variables = expression.scan(/[a-zA-Z]\d*/) # [Array] the variables of the expression. Ex: ['x1', 'x2'].
 
       breaks = []                                        
       restrictions.each_with_index do |restriction, idx| # [Array] all the breaks of the restrictions.
@@ -42,10 +59,29 @@ module Simplex
         matrix[idx+1][0] = brk             
       end                                  
 
-      matrix.last[0] = "Z"
+      if action == "max"
+        matrix.last[0] = "Z"
+      else
+        matrix.last[0] = "-Z"
+      end
 
       values.each_with_index do |value, idx|
-        matrix.last[idx+1] = value.match(/^\d+/)[0].to_f * -1 # Fill the last row with the values.
+        val = value.match(/(^-*\d*)[a-zA-Z].*/)[1] # Fill the last row with the values.
+          
+        if val.empty?
+          val = 1.0
+        elsif val == "-"
+          val = -1.0
+        else
+          val = val.to_f
+        end
+
+        if action == "max"
+          matrix.last[idx+1] = val * -1
+        else
+          matrix.last[idx+1] = val
+        end
+
       end
 
       restrictions.each_with_index do |restriction, idx| # Fill the rest of the table.
@@ -59,10 +95,12 @@ module Simplex
 
           if restriction.match(/.*#{variable}.*/)
             pos     = matrix[0].find_index(variable)
-            element = restriction.match(/(\d*)#{variable}.*/)[1] # Fill the variables values.
+            element = restriction.match(/(^*-*\d*)#{variable}.*/)[1] # Fill the variables values.
 
             if element.empty?
               matrix[idx+1][pos] = 1.to_f
+            elsif element == "-"
+              matrix[idx+1][pos] = -1.to_f
             else
               matrix[idx+1][pos] = element.to_f
             end 
@@ -148,14 +186,15 @@ module Simplex
       matrix
     end
 
-    def self.run(expression, restrictions = [])
+    def self.run(expression, restrictions = [],  action)
 
       matrix_step_by_step = []
 
-      matrix_step_by_step << simplex_table(expression, restrictions)
+      matrix_step_by_step << simplex_table(expression, restrictions, action)
 
       while stop_condition(matrix_step_by_step[-1][-1])
         a = copy_matrix(matrix_step_by_step[-1])
+
         matrix_step_by_step << simplex(a)
       end
 
