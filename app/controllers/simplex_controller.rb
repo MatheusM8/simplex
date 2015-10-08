@@ -1,11 +1,14 @@
+require 'simplex/simplex'
+
 class SimplexController < ApplicationController
   
   def index
-    @expressao = "2x + 3y"
-    @tabela = ['1','2']
+
   end
 
   def max
+    @matrix_step_by_step = Simplex::Simplex.run(params[:expression], params[:restrictions])
+
     render layout: false
   end
 
