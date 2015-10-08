@@ -34,11 +34,10 @@ module Simplex
 
     def self.simplex_table(expression, restrictions = [], action)
 
-      puts expression = expression.gsub(/[\s\*]/, '').strip
+      expression = expression.gsub(/[\s\*]/, '').strip
       restrictions.map do |r|
         r.gsub!(/[\s\*]/, '').strip!
       end
-      puts restrictions
       
       values    = expression.scan(/-*\w+/)      # [Array] values for each variable of the expression. Ex: ['3x1', '5x2'].
       variables = expression.scan(/[a-zA-Z]\d*/) # [Array] the variables of the expression. Ex: ['x1', 'x2'].
@@ -123,6 +122,19 @@ module Simplex
       false
     end
 
+    def self.column_stop_condition(array = [])
+      array.each_with_index do |el, idx|
+        if el != nil
+          if el <= 0
+            array[idx] = nil
+          end
+        end
+      end
+
+        array.compact!
+        array.empty?
+    end
+
     def self.copy_matrix(x)
       copy = x.map do |el|
         el.map do |e|
@@ -146,7 +158,11 @@ module Simplex
         row[var_in_idx] if row[var_in_idx] > 0 
       end
 
-      #### if var_in_column only has negative values, exit.
+      # if var_in_column only has negative values, exit.
+      if column_stop_condition(var_in_column.clone)
+        matrix[-1][-1] = nil
+        return matrix
+      end
 
       var_out     = nil
       var_out_idx = nil
@@ -193,6 +209,12 @@ module Simplex
       matrix_step_by_step << simplex_table(expression, restrictions, action)
 
       while stop_condition(matrix_step_by_step[-1][-1])
+        
+        if matrix_step_by_step[-1][-1][-1] == nil
+          matrix_step_by_step.pop
+          return matrix_step_by_step
+        end
+
         a = copy_matrix(matrix_step_by_step[-1])
 
         matrix_step_by_step << simplex(a)
