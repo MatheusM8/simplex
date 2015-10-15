@@ -39,7 +39,7 @@ module Simplex
         r.gsub!(/[\s\*]/, '').strip!
       end
       
-      values    = expression.scan(/-*\w+/)      # [Array] values for each variable of the expression. Ex: ['3x1', '5x2'].
+      values    = expression.scan(/\-*\w*\,*\.*\w+/)      # [Array] values for each variable of the expression. Ex: ['3x1', '5x2'].
       variables = expression.scan(/[a-zA-Z]\d*/) # [Array] the variables of the expression. Ex: ['x1', 'x2'].
 
       breaks = []                                        
@@ -65,7 +65,9 @@ module Simplex
       end
 
       values.each_with_index do |value, idx|
-        val = value.match(/(^-*\d*)[a-zA-Z].*/)[1] # Fill the last row with the values.
+        val = value.match(/(^-*\d*\,*\.*\d*)[a-zA-Z].*/)[1] # Fill the last row with the values.
+
+        val.gsub!(/\,/, '.')
           
         if val.empty?
           val = 1.0
