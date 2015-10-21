@@ -1,4 +1,17 @@
-<% @matrix_step_by_step.each do |matrix| %>
+<br>
+<% @matrix_step_by_step.each_with_index do |matrix, index| %>
+  <div style="height: 1px; background-color: #DDDDDD; text-align: center">
+    <span style="background-color: white; position: relative; top: -0.7em;">
+      <%if index == @matrix_step_by_step.size-1%>
+        <%= "Tabela de Sensibilidade" %>
+      <%elsif index == @matrix_step_by_step.size-2%>
+        <%= "Tabela Final" %>
+      <%else%>
+        <%= "Tabela #{index+1}" %>
+      <%end%>
+    </span>
+  </div>
+  <br>
 
   <div class="table-responsive">
     <table class="table table-bordered">
@@ -15,6 +28,7 @@
       <% end %>
     </table>
   </div>
-  <hr>
+<br>
+<br>
 
 <% end %>
