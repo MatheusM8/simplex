@@ -34,6 +34,8 @@ module Simplex
 
     def self.simplex_table(expression, restrictions = [], action)
 
+      restrictions = restrictions.compact.reject(&:blank?)
+
       expression = expression.gsub(/[\s\*]/, '').strip
       restrictions.map do |r|
         r.gsub!(/[\s\*]/, '').strip!
@@ -45,7 +47,9 @@ module Simplex
       breaks = []                                        
       restrictions.each_with_index do |restriction, idx| # [Array] all the breaks of the restrictions.
         breaks << "f#{idx+1}"                            # Ex: ['f1','f2','f3'].
-      end                                                
+      end
+
+      @breaks = breaks.clone # Store the break values for further use.                                                
 
       matrix =  []                                    # [Array] the initial array to represent the table.
       matrix << ["Base"] + variables + breaks + ["B"] # [Array] first row of the table.
@@ -85,12 +89,17 @@ module Simplex
 
       end
 
+      @last_column_values = []
+
       restrictions.each_with_index do |restriction, idx| # Fill the rest of the table.
 
         pos = matrix[0].find_index("f#{idx+1}") # Fill the value of the breaks.
         matrix[idx+1][pos] = 1.to_f
 
-        matrix[idx+1][-1] = restriction.match(/\d+$/)[0].to_f # Fill the last column with the values.
+        restriction_value = restriction.match(/\d+$/)[0].to_f
+
+        matrix[idx+1][-1] = restriction_value # Fill the last column with the values.
+        @last_column_values << restriction_value # Store the last column values for the sensibility table.
 
         variables.each do |variable|
 
@@ -204,6 +213,51 @@ module Simplex
       matrix
     end
 
+    def self.sensibility(matrix = [], restriction_values = [], break_values = [], restrictions_limit_vars = [])
+
+      sensibility_matrix = []
+      sensibility_matrix << ["Sensibilidade", "Preço Sombra", "Limite", "Valor"]
+
+      matrix[1...-1].size.times do |idx|
+        sensibility_matrix << Array.new(4) { |el| "R#{idx+1}" }
+      end
+
+      # Calculate limits
+      limits = []
+      restrictions_limit_vars[0...-1].each_with_index do |array, idx|
+        
+        limits << []
+        limit_values = []
+        array.each_with_index do |value, value_idx|
+          if value != 0
+            limit_values << (restrictions_limit_vars[-1][value_idx] / value * -1).round(0)
+          end
+        end
+
+        limits[idx] << limit_values.max
+        limits[idx] << limit_values.min
+      end
+
+      sensibility_matrix[1..-1].each_with_index do |array, idx|
+
+        array[1] = break_values[idx]
+
+        if restriction_values[idx] == nil
+          array[-1] = @last_column_values[idx]
+        else
+          array[-1] = @last_column_values[idx] - restriction_values[idx]
+        end        
+
+        if array[1] != 0
+          array[2] = "#{array[-1] + limits[idx].min} - #{array[-1] + limits[idx].max}"
+        else
+          array[2] = "-"
+        end
+      end
+
+      sensibility_matrix
+    end
+
     def self.run(expression, restrictions = [],  action)
 
       matrix_step_by_step = []
@@ -228,7 +282,34 @@ module Simplex
         matrix_step_by_step << simplex(a)
       end
 
-      matrix_step_by_step
+      last = copy_matrix(matrix_step_by_step[-1])
+
+      restriction_values = []
+      last[1...-1].each do |array|
+        if array[0] =~ /f.*/
+          restriction_values[array[0].gsub(/\D/, '').to_i - 1] = array[-1]
+        end  
+      end
+
+      break_indexes = []
+      break_values  = []
+      @breaks.each do |value|
+        break_indexes << last[0].find_index(value)
+        break_values << last[-1][last[0].find_index(value)].round(3)
+      end
+
+      break_indexes << -1
+
+      restrictions_limit_vars = []
+      break_indexes.each_with_index do |br_val, br_idx|
+        
+        restrictions_limit_vars << []
+        last[1...-1].each_with_index do |array, idx|
+          restrictions_limit_vars[br_idx] << array[br_val].round(3)
+        end
+      end
+
+      matrix_step_by_step << sensibility(last, restriction_values, break_values, restrictions_limit_vars)
     end
 
   end
