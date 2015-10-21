@@ -69,7 +69,7 @@ module Simplex
       end
 
       values.each_with_index do |value, idx|
-        val = value.match(/(^-*\d*\,*\.*\d*)[a-zA-Z].*/)[1] # Fill the last row with the values.
+        val = value.match(/(^*-*\d*\,*\.*\d*)[a-zA-Z].*/)[1] # Fill the last row with the values.
 
         val.gsub!(/\,/, '.')
           
@@ -105,7 +105,9 @@ module Simplex
 
           if restriction.match(/.*#{variable}.*/)
             pos     = matrix[0].find_index(variable)
-            element = restriction.match(/(^*-*\d*)#{variable}.*/)[1] # Fill the variables values.
+            element = restriction.match(/(^*-*\d*\,*\.*\d*)#{variable}.*/)[1] # Fill the variables values.
+
+            element.gsub!(/\,/, '.')
 
             if element.empty?
               matrix[idx+1][pos] = 1.to_f
@@ -230,7 +232,7 @@ module Simplex
         limit_values = []
         array.each_with_index do |value, value_idx|
           if value != 0
-            limit_values << (restrictions_limit_vars[-1][value_idx] / value * -1).round(0)
+            limit_values << (restrictions_limit_vars[-1][value_idx] * -1 / value).round(0)
           end
         end
 
