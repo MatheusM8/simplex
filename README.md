@@ -110,7 +110,7 @@ Framework WEB | Rails 4.1.6, Bootstrap 3.3.5
 IDE | Não Utilizado
 Editor de Texto | Sublime Text 2
 Design pattern | Não Utilizado
-Servidor Web | Web Rack (Heroku)
+Servidor Web | WEBrick (Heroku)
 
 ### 5. Procedimento E ALTERAÇAO DE CONFIGURAçãO do Ambiente
 Para alteração no ambiente é necessário possuir o Git e o kit de ferramenta do Heroku instalados, efetuar o login como administrador do repositório no Heroku e adicionar o repositório remoto com o comando “Heroku Create”. Após as etapas de configurações serem concluídas basta realizar um “push” da branch da aplicação no Git diretamente para o repositório remoto do Heroku. Exemplo: “git push heroku master”.
