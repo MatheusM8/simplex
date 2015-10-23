@@ -1,6 +1,6 @@
-# simplex
+# Simplex
 
-version 1.2
+version 1.3
 
 [Aplicação Simplex online](https://fierce-bayou-1370.herokuapp.com)
 

@@ -1,5 +1,5 @@
 
-Simplex v1.2
+Simplex v1.3
 
 Cesar Alves    RA 533122
 Gabriel Caires RA 526932

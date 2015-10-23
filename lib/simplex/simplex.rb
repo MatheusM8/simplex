@@ -1,5 +1,5 @@
 #
-# Simplex v1.0
+# Simplex v1.3
 #
 # Cesar Torralvo
 # Gabriel Caires
