@@ -270,7 +270,6 @@ module Simplex
       while stop_condition(matrix_step_by_step[-1][-1])
         
         if matrix_step_by_step[-1][-1][-1] == nil
-          matrix_step_by_step.pop
           return matrix_step_by_step
         end
 
