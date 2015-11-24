@@ -4,7 +4,7 @@
 
 jQuery ->
 
-  $("#add").click ->
+  $(document.documentElement).on "click", "#add", ->
     $("#restrictions").append("<div class='form-horizontal'>
         <div class='form-group'>
           <div class='col-sm-10'>
@@ -16,7 +16,7 @@ jQuery ->
         </div>
      </div>")
 
-  $(document).on "click", "#remove", ->
+  $(document.documentElement).on "click", "#remove", ->
     $(this).closest(".form-horizontal").remove()
 
   calculate = (type) ->
@@ -42,8 +42,8 @@ jQuery ->
         $("#result").html("Erro ! Expressão ou restrições com valores errados.")  
 
 
-  $("#max").click ->
+  $(document.documentElement).on "click", "#max", ->
     calculate("max")
 
-  $("#min").click ->
+  $(document.documentElement).on "click", "#min", ->
     calculate("min")

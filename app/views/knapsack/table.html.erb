@@ -10,14 +10,14 @@
     <nav class="navbar navbar-default">
       <div class="container-fluid">
         <div class="navbar-header">
-          <a class="navbar-brand" href="#">
-            <a class="navbar-brand" href="#">Knapsack</a>
+          <a class="navbar-brand" href="/index">
+            <a class="navbar-brand" href="/index">Simplex</a>
           </a>
           <a class="navbar-brand" href="#">
             <a class="navbar-brand" href="#">|</a>
           </a>
-          <a class="navbar-brand" href="/index">
-            <a class="navbar-brand" href="/index">Simplex</a>
+          <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="#"><b>Knapsack</b></a>
           </a>
         </div>
       </div>
@@ -29,8 +29,8 @@
 
         <div class="col-md-6">
           <div class="panel panel-default">
-            <div class="panel-heading">Tabela de pesos e valores:</div>
-            <table class="table">
+            <div class="panel-heading">Tabela de pesos e valores</div>
+            <table class="table" id="ktable">
               <th>
                 <tr>
                   <th>Peso</th>
@@ -50,8 +50,8 @@
                 <td><input type="text" class="form-control" /></td>
               </tr>
               <tr>
-                <td><button type="button" id="add" class="btn btn-success">Adicionar item</button></td>
-                <td><button type="button" id="rm" class="btn btn-danger">Remover item</button></td>
+                <td><button type="button" id="adic" class="btn btn-block btn-primary">Adicionar item</button></td>
+                <td><button type="button" id="rm" class="btn btn-block btn-danger">Remover item</button></td>
             </table>
           </div>
         </div>
@@ -59,32 +59,34 @@
         <div class="col-md-6">
           <div class="panel panel-default">
             <div class="panel-heading">
-              Capacidade da mochila:
+              Capacidade da mochila
             </div>
             <div class="panel-body">
               <input type="text" id="capacity" class="form-control" />
+              <br>
+              <button type="button" id="calc" class="btn btn-block btn-success">Calcular</button>
             </div>
-            <button type="button" id="calc" class="btn btn-block btn-primary">Calcular</button>
           </div>
         </div>
 
-        <div class="col-md-6">
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              Resultado (peso, valor):
-            </div>
-            <div class="panel-body">
-              <div id="result">
-                <div class="alert alert-info">
-                  Preencha o formulário ao lado, defina a capacidade e calcule.
-                </div>
-              </div>  
-            </div>
-          </div>
-        </div>
    
       </div>
 
+    </div>
+
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          Resultado
+        </div>
+        <div class="panel-body">
+          <div id="result">
+            <div class="alert alert-info">
+              Preencha o formulário ao lado, defina a capacidade da mochila e calcule.
+            </div>
+          </div>  
+        </div>
+      </div>
     </div>
 
   </body>

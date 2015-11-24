@@ -1,17 +1,17 @@
 jQuery ->
 
-  $("#add").click ->
-    $('.table tbody>tr:eq(-2)').clone(true).insertAfter '.table tbody>tr:eq(-2)'
+  $(document.documentElement).on "click", "#adic", ->
+    $('#ktable tbody>tr:eq(-2)').clone(true).insertAfter '#ktable tbody>tr:eq(-2)'
 
-  $("#rm").click ->
-    if $('.table tr').length > 4
-      $('.table tbody>tr:eq(-2)').remove()
+  $(document.documentElement).on "click", "#rm", ->
+    if $('#ktable tr').length > 4
+      $('#ktable tbody>tr:eq(-2)').remove()
 
   calculate = () ->
     weights = []
     values  = []
     count   = 0
-    $(".table tr td input").each ->
+    $("#ktable tr td input").each ->
       if count%2 == 0
         weights.push $(this).val()
         count++
@@ -42,5 +42,5 @@ jQuery ->
         $("#result").html("Erro !")  
 
 
-  $("#calc").click ->
+  $(document.documentElement).on "click", "#calc", ->
     calculate()

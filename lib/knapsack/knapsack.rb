@@ -101,7 +101,7 @@ module Knapsack
         end
       end while i > 0
 
-      result
+      return result, matrix
     end
 
   end

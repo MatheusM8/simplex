@@ -4,9 +4,7 @@ class KnapsackController < ApplicationController
   end
 
   def calc
-    @matrix = Knapsack::Knapsack.knapsack_table(params[:capacity], params[:weights], params[:values])
-
-    puts @matrix
+    @result, @matrix = Knapsack::Knapsack.knapsack_table(params[:capacity], params[:weights], params[:values])
 
     render layout: false
   end

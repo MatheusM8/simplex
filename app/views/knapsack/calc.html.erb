@@ -1,1 +1,44 @@
-<%= @matrix %>
+<b>Itens escolhidos pelo algoritmo:</b>
+<div class="table-responsive">
+  <table class="table table-bordered">
+    <tr>
+      <th><%= "Peso" %></th>
+      <th><%= "Valor" %></th>
+    </tr>
+    <% @result.each do |row| %>
+      <tr>                    
+        <% row.each_with_index do |el, idx| %>
+          <tr>
+          <td><%= el.first %></td>
+          <td><%= el.last %></td>
+          <tr>
+        <% end %>
+      </tr>  
+    <% end %>
+  </table>
+</div>
+
+<br>
+<b>Tabela:</b>
+<% @matrix.unshift(Array.new(@matrix.last.size) { |idx| idx })%>
+<% @matrix.first.unshift("#")%>
+<div class="table-responsive">
+  <table class="table table-bordered">
+    <% count = -1 %>
+    <% @matrix.each do |row| %>
+      <tr>
+        <% if count > -1 %>                    
+          <td><b><%= count.to_s %></b></td>
+        <% end %>
+        <% row.each_with_index do |el, idx| %>
+          <% if count == -1 %>                    
+            <td><b><%= el %></b></td>
+          <% else %>  
+            <td><%= el %></td>
+          <% end %>
+        <% end %>
+        <% count += 1 %>
+      </tr>  
+    <% end %>
+  </table>
+</div>
