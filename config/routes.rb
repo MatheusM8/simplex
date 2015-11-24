@@ -5,10 +5,13 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'simplex#index'
+  root 'knapsack#table'
 
-  get '/max' => 'simplex#max'
-  get '/min' => 'simplex#min'
+  get '/calc' => 'knapsack#calc'
+  
+  get '/index' => 'simplex#index'
+  get '/max'   => 'simplex#max'
+  get '/min'   => 'simplex#min'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

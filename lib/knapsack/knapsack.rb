@@ -21,27 +21,31 @@ module Knapsack
     # 2 | 0 | 14 | 31 | 45 | 45
     # 3 | 0 | 14 | 31 | 47 | 61
 
-    def self.knapsack_table
+    def self.knapsack_table(capacity, weights = [], values = [])
+
+      capacity = capacity.gsub(/[\s\*]/, '').strip
+      weights  = weights.compact.reject(&:blank?)
+      values   = values.compact.reject(&:blank?)
 
       # capacity = 4
-      # w        = %w{ 2 3 1 }
-      # c        = %w{ 31 47 14}
+      # weights  = %w{ 2 3 1 }
+      # values   = %w{ 31 47 14}
 
-      capacity = 23
-      w        = %w{ 1 2 5 6 7 9 11 }
-      c        = %w{ 1 6 18 22 28 40 60}
+      # capacity = 23
+      # weights  = %w{ 1 2 5 6 7 9 11 }
+      # values   = %w{ 1 6 18 22 28 40 60}
 
-      @wc_hsh = Hash[w.zip c]
+      @wc_hsh = Hash[weights.zip values]
 
       matrix = []
       # matrix << Array.new(capacity+1) { |idx| idx }
 
-      w_int = w.map do |item|
+      weights_int = weights.map do |item|
         item.to_i
       end
 
-      (w_int.max+1).times do |item| 
-        matrix << Array.new(capacity+1, 0)
+      (weights_int.max+1).times do |item| 
+        matrix << Array.new(capacity.to_i+1, 0)
       end
 
       fill_table(matrix)
