@@ -1,5 +1,5 @@
 
-Simplex v1.3
+Simplex e Knapsack v1.4
 
 Cesar Alves    RA 533122
 Gabriel Caires RA 526932
